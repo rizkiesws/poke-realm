@@ -1,6 +1,4 @@
-# 🔴 PokeRealm — The Ultimate Pokédex & Battle Arena 🔵
-
-![Master Ball](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png)
+PokeRealm — The Ultimate Pokédex & Battle Arena
 
 **PokeRealm** is a modern, feature-rich web application built with React that serves as a comprehensive Pokémon encyclopedia. Far beyond a simple list, it features interactive data visualization, recursive evolution trees, mini-games, and a sleek, fully responsive UI wrapped in a dynamic Dark/Light theme.
 
