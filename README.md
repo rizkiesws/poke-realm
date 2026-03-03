@@ -1,6 +1,6 @@
-# PokeWiki - Comprehensive Pokémon Encyclopedia
+# PokeRealm - Comprehensive Pokémon Encyclopedia
 
-**PokeWiki** is a modern, feature-rich web application built with React that serves as a comprehensive Pokémon encyclopedia. It provides interactive data visualization, detailed Pokémon information, evolution trees, type comparisons, and an engaging mini-game experience with a fully responsive interface supporting both dark and light themes.
+**PokeRealm** is a modern, feature-rich web application built with React that serves as a comprehensive Pokémon encyclopedia. It provides interactive data visualization, detailed Pokémon information, evolution trees, type comparisons, and an engaging mini-game experience with a fully responsive interface supporting both dark and light themes.
 
 Powered by the [PokéAPI](https://pokeapi.co/), this project demonstrates advanced frontend development skills including complex state management, data caching, responsive design, and data visualization.
 
