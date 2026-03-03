@@ -6,6 +6,24 @@ import { Loader2, Search, ArrowUp, X, ChevronDown } from "lucide-react";
 import SkeletonCard from "../../../components/UI/SkeletonCard";
 import PokemonDetail from "./PokemonDetail";
 
+// Generation data with ID ranges
+const POKEMON_GENERATIONS = [
+  { label: "All Gen", value: null, range: [1, 9999] },
+  { label: "Gen 1 (Kanto)", value: 1, range: [1, 151] },
+  { label: "Gen 2 (Johto)", value: 2, range: [152, 251] },
+  { label: "Gen 3 (Hoenn)", value: 3, range: [252, 386] },
+  { label: "Gen 4 (Sinnoh)", value: 4, range: [387, 493] },
+  { label: "Gen 5 (Unova)", value: 5, range: [494, 649] },
+  { label: "Gen 6 (Kalos)", value: 6, range: [650, 721] },
+  { label: "Gen 7 (Alola)", value: 7, range: [722, 809] },
+  { label: "Gen 8 (Galar)", value: 8, range: [810, 905] },
+  { label: "Gen 9 (Paldea)", value: 9, range: [906, 1025] },
+];
+
+/**
+ * PokemonList Component
+ * Displays paginated Pokémon with filtering by type and generation
+ */
 const PokemonList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedType = searchParams.get("type") || null;
@@ -15,24 +33,10 @@ const PokemonList = () => {
   const topRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const [selectedGen, setSelectedGen] = useState(null); 
+  const [selectedGen, setSelectedGen] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const generations = [
-    { label: "All Gen", value: null, range: [1, 9999] },
-    { label: "Gen 1 (Kanto)", value: 1, range: [1, 151] },
-    { label: "Gen 2 (Johto)", value: 2, range: [152, 251] },
-    { label: "Gen 3 (Hoenn)", value: 3, range: [252, 386] },
-    { label: "Gen 4 (Sinnoh)", value: 4, range: [387, 493] },
-    { label: "Gen 5 (Unova)", value: 5, range: [494, 649] },
-    { label: "Gen 6 (Kalos)", value: 6, range: [650, 721] },
-    { label: "Gen 7 (Alola)", value: 7, range: [722, 809] },
-    { label: "Gen 8 (Galar)", value: 8, range: [810, 905] },
-    { label: "Gen 9 (Paldea)", value: 9, range: [906, 1025] },
-  ];
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -48,9 +52,10 @@ const PokemonList = () => {
     const observer = new IntersectionObserver(([entry]) => setShowScrollTop(!entry.isIntersecting), {
       rootMargin: "-300px 0px 0px 0px",
     });
-    if (topRef.current) observer.observe(topRef.current);
+    const currentRef = topRef.current;
+    if (currentRef) observer.observe(currentRef);
     return () => {
-      if (topRef.current) observer.unobserve(topRef.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
@@ -105,7 +110,7 @@ const PokemonList = () => {
   } else if (selectedType) {
     rawPokemonData = filterQuery.data || [];
   } else if (selectedGen !== null) {
-    rawPokemonData = allPokemon || []; 
+    rawPokemonData = allPokemon || [];
   } else {
     rawPokemonData = infiniteQuery.data?.pages.flatMap((page) => page.results) || [];
   }
@@ -115,7 +120,7 @@ const PokemonList = () => {
     if (id >= 10000) return false;
 
     if (selectedGen !== null && !isSearching) {
-      const genInfo = generations.find((g) => g.value === selectedGen);
+      const genInfo = POKEMON_GENERATIONS.find((g) => g.value === selectedGen);
       if (genInfo && (id < genInfo.range[0] || id > genInfo.range[1])) {
         return false;
       }
@@ -163,7 +168,9 @@ const PokemonList = () => {
       <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-6 gap-4 mt-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white transition-colors">Pokédex</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2 transition-colors">Explore the complete list of Pokémon.</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-2 transition-colors">
+            Explore the complete list of Pokémon.
+          </p>
         </div>
         <form onSubmit={handleSearch} className="relative w-full md:w-80">
           <input
@@ -206,7 +213,7 @@ const PokemonList = () => {
               className="w-4 h-4 object-contain"
             />
             <span className="whitespace-nowrap">
-              {generations.find((g) => g.value === selectedGen)?.label.replace(/ \(.+\)/, "") || "All Gen"}
+              {POKEMON_GENERATIONS.find((g) => g.value === selectedGen)?.label.replace(/ \(.+\)/, "") || "All Gen"}
             </span>
             <ChevronDown
               size={16}
@@ -216,7 +223,7 @@ const PokemonList = () => {
 
           {isDropdownOpen && (
             <div className="absolute top-full left-0 mt-3 w-48 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-              {generations.map((gen) => (
+              {POKEMON_GENERATIONS.map((gen) => (
                 <button
                   key={gen.label}
                   onClick={() => {
@@ -274,11 +281,13 @@ const PokemonList = () => {
           ))}
         </div>
       )}
-      
+
       {isError && <div className="text-center p-10 text-red-500">Failed to load data.</div>}
-      
+
       {isSearching && validPokemonList.length === 0 && (
-        <div className="text-center p-10 text-gray-400 dark:text-gray-500 font-medium transition-colors">No Pokémon found matching "{searchTerm}"</div>
+        <div className="text-center p-10 text-gray-400 dark:text-gray-500 font-medium transition-colors">
+          No Pokémon found matching "{searchTerm}"
+        </div>
       )}
 
       {!isLoading && !isError && (
@@ -294,7 +303,9 @@ const PokemonList = () => {
                 className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-xl dark:hover:shadow-lg dark:hover:shadow-red-500/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-700 group flex flex-col items-center"
               >
                 <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-4 flex justify-center relative w-full transition-colors">
-                  <span className="absolute top-2 left-3 text-xs font-bold text-gray-400 dark:text-gray-500">#{id.padStart(3, "0")}</span>
+                  <span className="absolute top-2 left-3 text-xs font-bold text-gray-400 dark:text-gray-500">
+                    #{id.padStart(3, "0")}
+                  </span>
                   <img
                     src={imageUrl}
                     alt={pokemon.name}

@@ -5,6 +5,10 @@ import { Loader2, Search, ArrowUp, X } from "lucide-react";
 import SkeletonCard from "../../../components/UI/SkeletonCard";
 import MoveDetail from "./MoveDetail";
 
+/**
+ * MoveList Component
+ * Displays paginated list of Pokémon moves with search functionality
+ */
 const MoveList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMoveModal, setSelectedMoveModal] = useState(null);
@@ -15,9 +19,10 @@ const MoveList = () => {
     const observer = new IntersectionObserver(([entry]) => setShowScrollTop(!entry.isIntersecting), {
       rootMargin: "-300px 0px 0px 0px",
     });
-    if (topRef.current) observer.observe(topRef.current);
+    const currentRef = topRef.current;
+    if (currentRef) observer.observe(currentRef);
     return () => {
-      if (topRef.current) observer.unobserve(topRef.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 

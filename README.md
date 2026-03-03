@@ -1,61 +1,59 @@
-# 🔴 PokeRealm — The Ultimate Pokédex & Battle Arena 🔵
+# PokeWiki - Comprehensive Pokémon Encyclopedia
 
-![Master Ball](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png)
-
-**PokeRealm** is a modern, feature-rich web application built with React that serves as a comprehensive Pokémon encyclopedia. Far beyond a simple list, it features interactive data visualization, recursive evolution trees, mini-games, and a sleek, fully responsive UI wrapped in a dynamic Dark/Light theme.
+**PokeWiki** is a modern, feature-rich web application built with React that serves as a comprehensive Pokémon encyclopedia. It provides interactive data visualization, detailed Pokémon information, evolution trees, type comparisons, and an engaging mini-game experience with a fully responsive interface supporting both dark and light themes.
 
 Powered by the [PokéAPI](https://pokeapi.co/), this project demonstrates advanced frontend development skills including complex state management, data caching, responsive design, and data visualization.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 📖 Advanced Pokédex
+### Advanced Pokédex
 
 - **Infinite Scrolling** — Seamlessly browse through hundreds of Pokémon without pagination delays.
-- **Smart Search & Filters** — Live search by Name or ID, combined with Generation and Type filtering.
-- **Optimized Caching** — Powered by TanStack Query (React Query) for lightning-fast data retrieval and minimal API calls.
-- **Skeleton Loaders** — Custom loading skeletons that adapt perfectly to both Light and Dark modes.
+- **Smart Search and Filters** — Live search by name or ID, combined with generation and type filtering.
+- **Optimized Data Caching** — Powered by TanStack Query for fast data retrieval and minimal API calls.
+- **Adaptive Loading States** — Custom skeleton loaders that work seamlessly in both light and dark modes.
 
-### 🔍 In-Depth Pokémon Details
+### Detailed Pokémon Information
 
-- **About & Encounters** — Flavor texts, physical traits, and a dedicated sub-modal mapping out in-game encounter locations.
-- **Base Stats & Weaknesses** — Visual progress bars for stats and an automated Type Matchup calculator displaying critical weaknesses.
-- **Recursive Evolution Tree** — A dynamically generated, mobile-friendly evolution tree that handles complex branching (e.g., Eevee's 8 evolutions).
-- **Immersive Audio & Visuals** — Toggle between Normal and Shiny sprites, and play authentic Pokémon cries directly from the UI.
+- **Comprehensive Profiles** — Flavor text, physical characteristics, and encounter locations.
+- **Base Statistics and Type Matchups** — Visual stat indicators with automated type effectiveness calculations.
+- **Evolution Tracking** — Dynamically generated evolution trees handling complex branching patterns.
+- **Media Integration** — Toggle between standard and shiny sprites with authentic Pokémon audio cries.
 
-### ⚔️ Versus Arena
+### Pokémon Comparison Tool
 
-- **Side-by-Side Comparison** — Pit two Pokémon against each other in a dedicated battle arena layout.
-- **Dynamic Radar Chart** — Integrated with **Recharts** to visualize and overlap base stats. Chart lines automatically adapt to each Pokémon's primary type color.
-- **Head-to-Head Breakdown** — A detailed, color-coded stat table highlighting the statistical winner in each category.
+- **Side-by-Side Analysis** — Compare two Pokémon in a dedicated comparison view.
+- **Statistical Visualization** — Radar charts integrated with Recharts to overlay base stats with type-based color coding.
+- **Detailed Comparison Table** — Color-coded statistics highlighting comparative strengths across categories.
 
-### 🎮 Mini-Game: Who's That Pokémon?
+### Interactive Mini-Game
 
-- A nostalgic, interactive guessing game with multiple difficulty modes: Starters, Legendaries, Specific Generations, and Insane Mode.
-- Features dynamic loading texts, authentic audio cues, and a streak counter.
+- **Who's That Pokémon?** — An interactive guessing game with multiple difficulty modes including Starters, Legendaries, Specific Generations, and Expert Mode.
+- **Game Features** — Dynamic loading text, authentic audio feedback, and streak tracking.
 
-### 🌗 Theming & UI/UX
+### Theme Support and Responsive Design
 
-- **Sun/Moon Stone Theme Toggle** — A custom, animated Dark Mode toggle tailored to the Pokémon theme.
-- **Fully Responsive** — Optimized for Desktop, Tablet, and Mobile with mobile-specific navigation patterns (hamburger menus, safe-area padding).
-- **Flawless Overlay Management** — Proper z-index handling across modals, sidebars, floating action buttons, and dropdowns.
-
----
-
-## 🛠️ Tech Stack
-
-| Category              | Technology                          |
-| --------------------- | ----------------------------------- |
-| Core                  | React.js, React Router DOM          |
-| Styling               | Tailwind CSS, Lucide React          |
-| Data Fetching & State | Axios, TanStack Query (React Query) |
-| Data Visualization    | Recharts                            |
-| API                   | [PokéAPI v2](https://pokeapi.co/)   |
+- **Dark and Light Modes** — Seamless theme toggle with persistent user preferences.
+- **Fully Responsive** — Optimized layouts for desktop, tablet, and mobile devices with mobile-specific navigation patterns.
+- **Proper Overlay Management** — Correct z-index handling for modals, sidebars, and dropdown menus.
 
 ---
 
-## 🚀 Getting Started
+## Technology Stack
+
+| Category           | Technology                          |
+| ------------------ | ----------------------------------- |
+| Frontend Framework | React.js, React Router DOM          |
+| Styling            | Tailwind CSS, Lucide React          |
+| Data Management    | Axios, TanStack Query (React Query) |
+| Visualization      | Recharts                            |
+| Data Source        | [PokéAPI v2](https://pokeapi.co/)   |
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
@@ -67,57 +65,54 @@ Powered by the [PokéAPI](https://pokeapi.co/), this project demonstrates advanc
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/poke-realm.git
-   cd poke-realm
+   git clone https://github.com/yourusername/pokewiki.git
+   cd pokewiki
    ```
 
 2. **Install dependencies:**
 
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. **Start the development server:**
 
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
 4. **Open your browser** and navigate to `http://localhost:5173`.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── UI/               # Reusable components (SkeletonCard, etc.)
-│   └── Layout/           # MainLayout, Sidebar, ThemeToggle
+│   ├── UI/               # Reusable UI components
+│   └── Layout/           # Page layout components
 ├── features/
-│   └── pokemon/
-│       ├── PokemonList.jsx       # Infinite scroll Pokédex
-│       ├── PokemonDetail.jsx     # Detail modal with Evolution Tree
-│       ├── ComparePokemon.jsx    # Recharts visualization arena
-│       └── WhosThatPokemon.jsx   # Mini-game component
-├── services/
-│   └── pokemonService.js         # Centralized API logic and Axios instances
+│   ├── pokemon/          # Pokémon browsing and comparison features
+│   ├── abilities/        # Ability information and browsing
+│   ├── moves/            # Move encyclopedia
+│   ├── items/            # Item database
+│   ├── berries/          # Berry information
+│   ├── machines/         # TM/HM database
+│   └── locations/        # Location information
+├── services/             # API integration and data fetching logic
+├── routes/               # Application routing configuration
+├── utils/                # Utility functions
 └── App.jsx
 ```
 
 ---
 
-## 🤝 Acknowledgements
+## Acknowledgements
 
-- Huge thanks to the creators of [PokéAPI](https://pokeapi.co/) for providing such a detailed and open-source database.
-- Sprites and icons sourced from official Pokémon assets and open-source community contributions.
-
----
-
-Built with ❤️ and a lot of coffee by **Muhammad Rizky**
+- Data provided by [PokéAPI](https://pokeapi.co/)
+- Sprites and assets sourced from official Pokémon resources and community contributions
 
 ---
+
+Developed by **Muhammad Rizky**

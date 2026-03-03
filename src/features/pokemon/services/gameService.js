@@ -1,8 +1,16 @@
-const STARTER_IDS = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 815, 906, 909, 912];
-const LEGENDARY_IDS = [144, 145, 146, 150, 151, 243, 244, 245, 249, 250, 251, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386]; 
-const INSANE_RANGE = [1, 1025]; 
+// Pokémon ID pools for different game modes
+const STARTER_IDS = [
+  1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 815, 906,
+  909, 912,
+];
+const LEGENDARY_IDS = [
+  144, 145, 146, 150, 151, 243, 244, 245, 249, 250, 251, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386,
+];
+const INSANE_RANGE = [1, 1025];
 
-// Diexport karena butuh dipakai di menu dropdown UI
+/**
+ * Pokémon generation ID ranges for game mode selection
+ */
 export const genRanges = {
   "Gen 1 (Kanto)": [1, 151],
   "Gen 2 (Johto)": [152, 251],
@@ -12,9 +20,13 @@ export const genRanges = {
   "Gen 6 (Kalos)": [650, 721],
   "Gen 7 (Alola)": [722, 809],
   "Gen 8 (Galar)": [810, 905],
-  "Gen 9 (Paldea)": [906, 1025]
+  "Gen 9 (Paldea)": [906, 1025],
 };
 
+/**
+ * Generates a quiz round with target Pokémon and multiple choice options
+ * Selects 4 random Pokémon and shuffles them as options
+ */
 export const fetchQuizRound = async ({ queryKey }) => {
   const [_, mode] = queryKey;
   let pool = [];
@@ -35,7 +47,7 @@ export const fetchQuizRound = async ({ queryKey }) => {
   const promises = idArray.map((id) => fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) => res.json()));
   const results = await Promise.all(promises);
 
-  const target = results[0]; 
+  const target = results[0];
   const options = results.map((r) => r.name).sort(() => Math.random() - 0.5);
 
   return { target, options };

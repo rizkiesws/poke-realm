@@ -2,6 +2,16 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
+// Constants for theme toggle
+const THEME_ICONS = {
+  dark: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moon-stone.png",
+  light: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sun-stone.png",
+};
+
+/**
+ * ThemeToggle Component
+ * Handles light/dark mode switching with persistent localStorage state
+ */
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
@@ -13,6 +23,7 @@ const ThemeToggle = () => {
     return false;
   });
 
+  // Apply theme to DOM and persist selection
   useEffect(() => {
     const root = window.document.documentElement;
     if (isDark) {
@@ -32,14 +43,11 @@ const ThemeToggle = () => {
       className={`relative p-2 rounded-full transition-all duration-300 hover:scale-110 shadow-sm flex items-center justify-center border-2 shrink-0
       ${isDark ? "bg-gray-800 border-gray-600 shadow-purple-500/20" : "bg-orange-50 border-orange-200 shadow-orange-500/20"}`}
       title={isDark ? "Light Mode" : "Dark Mode"}
+      aria-label="Toggle theme"
     >
       <img
-        src={
-          isDark
-            ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moon-stone.png"
-            : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sun-stone.png"
-        }
-        alt="Theme Stone"
+        src={isDark ? THEME_ICONS.dark : THEME_ICONS.light}
+        alt="Theme toggle icon"
         className={`w-6 h-6 object-contain transition-transform duration-500 ${isDark ? "-rotate-12" : "rotate-45"}`}
       />
     </button>
@@ -54,15 +62,16 @@ const MainLayout = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-100 transition-colors duration-300">
-      {/* Mobile Overlay - z-[90] ensures it sits above page content but below sidebar */}
+      {/* Mobile overlay backdrop - triggers sidebar close on tap */}
       {isSidebarOpen && (
         <div
           onClick={closeSidebar}
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] md:hidden animate-in fade-in"
+          aria-hidden="true"
         />
       )}
 
-      {/* Sidebar - z-[100] ensures it floats above everything including filter & scroll buttons */}
+      {/* Sidebar navigation - visible on all screen sizes, slides from left on mobile */}
       <aside
         className={`
           fixed inset-y-0 left-0 z-[100] w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-all duration-300 ease-in-out flex flex-col
