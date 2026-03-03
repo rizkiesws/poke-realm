@@ -65,8 +65,8 @@ Powered by the [PokéAPI](https://pokeapi.co/), this project demonstrates advanc
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/pokewiki.git
-   cd pokewiki
+   git clone https://github.com/yourusername/poke-realm.git
+   cd poke-realm
    ```
 
 2. **Install dependencies:**
